@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<script charset="utf-8" src="http://api.map.baidu.com/api?v=2.0&ak=eWEHmhtKho5un0x8kTa1q53t3OTPKSLF"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+	<script type="text/javascript">
+      (function(doc, win) {
+        var docEl = doc.documentElement,
+          resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+          recalc = function() {
+            var clientWidth = docEl.clientWidth;
+            if (!clientWidth) return;
+            if (clientWidth >= 750) {
+              docEl.style.fontSize = '100px';
+            } else {
+              docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+            }
+          };
+
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+      })(document, window);
+    </script>
+	<style>
+		body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,input,textarea,p,th,td,figure,figcaption,header,footer,nav,aside,section,article{margin:0; padding:0; font-family: "微软雅黑", Microsoft Yahei, Arial, Helvetica, sans-serif;}
+		body,html{background: #fff;font-family:"Microsoft Yahei",sans-serif;background: #f2f2f2;}
+		table{border-collapse:collapse;border-spacing:0;}
+		img{display: block;width: 100%;;border:0;}
+		ol,ul{list-style:none;}
+		a{text-decoration:none;}
+		textarea{ box-sizing: content-box; border:none;outline: none;}
+		input{outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);border-radius:0; box-sizing: content-box;border: none;}
+		.map-page{
+		    height: 100%;
+		    overflow: hidden;
+		}
+		.map-view {
+		  width: 100%;
+		  height: 90%;
+		}
+		.addr-msg{
+		    height: 10%;
+		    background: #fff;
+		    box-sizing: border-box;		    
+		}
+		.addr-msg .title{
+	        float: left;
+	        padding-top: .1rem;
+	        padding-left: .2rem;
+	        width: 80%;		        
+	    }
+	    .addr-msg .title h3{
+            margin-bottom: .1rem;
+            font-size: .32rem;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+	    .addr-msg .title p{
+            height: .3rem;
+            line-height: .3rem;
+            font-size: .26rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .addr-msg .addr{
+	        float: right;
+	        padding: .1rem;		        
+	    }
+		.addr-msg .addr figure{
+            margin: 0 auto;
+            width: .44rem;
+            height: .44rem;
+        }
+        .addr-msg .addr .infor{
+            height: .3rem;
+            line-height: .3rem;
+            font-size: .24rem;
+            text-align: center;
+        }
+	</style>
+</head>
+<body>
+	<div id='dome' class="map-page" :style="{ height: wrapperHeight + 'px' }">
+        <div class="map-view" id="mapView"></div>
+        <div class="addr-msg">
+            <div class="title">
+                <h3>{{name}}</h3>
+                <p>{{addr}}</p>
+            </div>
+            <div class="addr">
+                <figure><img src="./images/tag.png"></figure>
+                <p class="infor">{{distance}}km</p>
+                <p class="infor">去这里</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="data.json"></script>
+    <script type="text/javascript">
+    	new Vue({
+		  el: '#dome',
+		  data:{
+		        lat:'',
+	            lng:'',
+	            wrapperHeight:0,
+	            name:'',
+	            addr:'',
+	            distance:'',
+	            dataList:[],
+	            selectData:'',
+	            selectedPoint:{
+	                lng:'',
+	                lat:'',
+	            },
+		    },
+		    mounted:function(){
+		        this.wrapperHeight = document.documentElement.clientHeight;
+		        let that = this;
+		        that.dataList = res[0].data; 
+		        that.selectData = res[0].data[0];
+		        that.name = res[0].data[0].node_name;
+		        that.addr = res[0].data[0].addr;
+		        that.distance = res[0].data[0].distance;
+		        that.lat = res[0].data[0].Y_COORDINATE;
+		        that.lng = res[0].data[0].X_COORDINATE;
+		        this.getPosition();              
+		    },
+		    methods: {       
+		        getPosition(){ //定位  
+		            let that = this;      
+		            let geolocation = new BMap.Geolocation();
+		            console.log(geolocation)
+		            geolocation.getCurrentPosition(function(r){
+		                if (this.getStatus() == BMAP_STATUS_SUCCESS){
+		                    let map = new BMap.Map('mapView');                        // 创建地图实例  
+		                    let point = new BMap.Point(r.point.lng, r.point.lat);     // 创建点坐标  
+		                    map.centerAndZoom(point, 15);                             // 初始化地图，设置中心点坐标和地图级别
+		                    map.addControl(new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT}));  // 左上角，添加比例尺      
+		                    map.addControl(new BMap.NavigationControl());             //左上角，添加默认缩放平移控件 
+		                    map.addControl(new BMap.GeolocationControl());            // 添加定位控件    
+
+		                    for(let j = 0 ; j < that.dataList.length ; j++){
+		                        let newPoint = new BMap.Point(that.dataList[j].X_COORDINATE,that.dataList[j].Y_COORDINATE);  // 创建点坐标
+		                        let myIcon = new BMap.Icon("./images/company-icon.png", new BMap.Size(30,30));
+		                        let marker = new BMap.Marker(newPoint,{icon:myIcon});   // 创建标注                        
+		                        map.addOverlay(marker);    // 将标注添加到地图中
+		                        that.addClickHandler(map,marker);                        
+		                    }
+		                }
+		            })
+		           
+		        },
+		        addClickHandler(map,marker){
+		            let selected = false;
+		            let that = this;
+		            marker.addEventListener("click", function(){  
+		                // console.log(marker.getPosition())
+		                let p = marker.getPosition();
+		                for(let j = 0 ; j < that.dataList.length ; j++){
+		                    if(that.dataList[j].Y_COORDINATE == p.lat){
+		                        for(let k = 0 ; k < that.dataList.length ; k++){
+		                            if(that.dataList[k].X_COORDINATE == p.lng){ 
+		                            	//记录点击marker坐标
+		                                that.selectedPoint.lng = p.lng;
+		                                that.selectedPoint.lat = p.lat;     
+
+		                                that.selectData = that.dataList[k];  
+		                                that.name = that.selectData.node_name;
+		                                that.addr = that.selectData.addr;
+		                                that.distance = that.selectData.distance; 
+		                                map.panTo(new BMap.Point(p.lng, p.lat)); 
+		                                marker.setIcon(new BMap.Icon("./images/curr-sel.png",new BMap.Size(30,30)));
+		                                
+		                            }
+		                        }
+		                    }
+		                }
+		                
+		                
+		                                            
+		            });
+		        },
+		    },
+		})
+    </script>
+</body>
+</html>

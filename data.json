@@ -1,0 +1,158 @@
+const res = [
+    {
+        "data": [
+            {
+                "distance": 0.2,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.407144,
+                "addr": "北京市东城区鲜鱼口65、67、69、71、73、75、77号",
+                "node_name": "便宜坊鲜鱼口店",
+                "node_type": "团体消费门店",
+                "Y_COORDINATE": 39.9029,
+                "node_id": "110101304"
+            },
+            {
+                "distance": 0.2,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.406578,
+                "addr": "北京市东城区鲜鱼口81、83号",
+                "node_name": "天兴居鲜鱼口店",
+                "node_type": "团体消费门店",
+                "Y_COORDINATE": 39.902569,
+                "node_id": "110101318"
+            },
+            {
+                "distance": 0.3,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.405969,
+                "addr": "北京市东城区鲜鱼口街85号",
+                "node_name": "锦芳鲜鱼口店",
+                "node_type": "团体消费门店",
+                "Y_COORDINATE": 39.90262,
+                "node_id": "110101313"
+            },
+            {
+                "distance": 0.3,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.404686,
+                "addr": "北京市东城区前门大街38号",
+                "node_name": "都一处前门店",
+                "node_type": "团体消费门店",
+                "Y_COORDINATE": 39.902549,
+                "node_id": "110101308"
+            },
+            {
+                "distance": 0.3,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.405805,
+                "addr": "北京市东城区鲜鱼口78号",
+                "node_name": "力力鲜鱼口店",
+                "node_type": "团体消费门店",
+                "Y_COORDINATE": 39.90231,
+                "node_id": "110101316"
+            },
+            {
+                "distance": 0.3,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.40427,
+                "addr": "北京市东城区前门大街27号",
+                "node_name": "壹条龙前门店",
+                "node_type": "团体消费门店",
+                "Y_COORDINATE": 39.90333,
+                "node_id": "110101320"
+            },
+            {
+                "distance": 0.4,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.404725,
+                "addr": "北京市东城区前门大街52号",
+                "node_name": "庆丰包子铺（前门店）",
+                "node_type": "团体消费门店",
+                "Y_COORDINATE": 39.901849,
+                "node_id": "110101248"
+            },
+            {
+                "distance": 0.7,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.406479,
+                "addr": "北京市东城区珠市口东大街19号西侧一层西2号",
+                "node_name": "吉野家(珠市口店)",
+                "node_type": "团体消费门店",
+                "Y_COORDINATE": 39.898355,
+                "node_id": "110101331"
+            },
+            {
+                "distance": 0.8,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.415564,
+                "addr": "北京市东城区前门东大街2号楼裙房",
+                "node_name": "功德林",
+                "node_type": "团体消费门店",
+                "Y_COORDINATE": 39.907077,
+                "node_id": "110101310"
+            },
+            {
+                "distance": 0.8,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.398452,
+                "addr": "北京市西城区前门西大街（正阳市场4号）庆丰包子铺",
+                "node_name": "庆丰包子铺（前门西店）",
+                "node_type": "团体消费门店",
+                "Y_COORDINATE": 39.906241,
+                "node_id": "110102349"
+            },
+            {
+                "distance": 0.8,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.415564,
+                "addr": "北京市东城区前门东大街2号楼西侧平房",
+                "node_name": "锦芳食苑",
+                "node_type": "团体消费门店",
+                "Y_COORDINATE": 39.907077,
+                "node_id": "110101312"
+            },
+            {
+                "distance": 0.9,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.41375,
+                "addr": "北京市丰台区顺八条8号院三区3号楼1至3层102室内三层F3-01.F3-20(东铁匠营)",
+                "node_name": "北京市正一味快餐管理有限公司丰台第九快餐分店",
+                "node_type": "团体消费门店",
+                "Y_COORDINATE": 39.89863,
+                "node_id": "110113715"
+            },
+            {
+                "distance": 1.1,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.420327,
+                "addr": "北京市东城区东兴隆街58号606室",
+                "node_name": "北京永和大王餐饮有限公司",
+                "node_type": "团体配送",
+                "Y_COORDINATE": 39.903365,
+                "node_id": "110101348"
+            },
+            {
+                "distance": 1.1,
+                "traceability_type": "猪肉、蔬菜",
+                "X_COORDINATE": 116.416,
+                "addr": "北京市东城区金鱼池中街2号院11号楼1层11-36",
+                "node_name": "超市发(金鱼池店)",
+                "node_type": "生鲜超市",
+                "Y_COORDINATE": 39.898,
+                "node_id": "110101384"
+            },
+            {
+                "distance": 1.3,
+                "traceability_type": "蔬菜",
+                "X_COORDINATE": 116.392749,
+                "addr": "北京市丰台区和平门区小广场",
+                "node_name": "刘威威和平门区小广场（志广富庶/车）",
+                "node_type": "直营直供门店",
+                "Y_COORDINATE": 39.906933,
+                "node_id": "110106470"
+            }
+        ],
+        "message": "查询成功",
+        "result": true
+    }
+]
